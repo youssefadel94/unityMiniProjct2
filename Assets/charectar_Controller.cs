@@ -9,10 +9,15 @@ public class charectar_Controller : MonoBehaviour {
     private float speed;
     private bool isCrouching;
     private bool isPlaying;
+    private bool isPlaying2;
     private bool isJumping;
 
     void donePlaying() {
         isPlaying = false;
+    }
+    void donePlaying2()
+    {
+        isPlaying2 = false;
     }
 
     // Use this for initialization
@@ -28,6 +33,7 @@ public class charectar_Controller : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("crouching"+isCrouching + " playing " +isPlaying+ " 2 "+ isPlaying2);
 
 
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
@@ -37,7 +43,7 @@ public class charectar_Controller : MonoBehaviour {
         transform.Translate(0, 0, z);
 
         //isPlaying || isCrouching || isJumping
-        if (false) {
+        if ( isPlaying2 || isPlaying) {
            // animation.Play("uncrouch");
           //  isCrouching = false;
 
@@ -73,20 +79,27 @@ public class charectar_Controller : MonoBehaviour {
                         if (Input.GetKey(KeyCode.Space) )
                         {
                             animation.Play("jump");//need new animation disabled for now
-                                isJumping = true;
+                                isJumping = true;isPlaying = true;
                         }
                         else
                         {
-                            if (Input.GetKey(KeyCode.C) )
+                            if (Input.GetKey(KeyCode.C) && !isCrouching && !isPlaying2 && !isPlaying)
                             {
 
                                 animation.Play("crouch");//need new animation disabled for now
-                                    isCrouching = true;
+                                    isCrouching = true; isPlaying = true;
+
                             }
                             else
                             {
-                               // animation.Play("idle");//need fix wait till init animation finish playing
-                            }
+                                    if (Input.GetKey(KeyCode.C) && isCrouching && !isPlaying2 && !isPlaying) {
+                                        animation.Play("uncrouch");//need new animation disabled for now
+                                        isCrouching = false; isPlaying2 = true;
+                                    }
+                                    else {
+                                        if(!isPlaying && !isPlaying2 && !isCrouching) animation.Play("idle");//need fix wait till init animation finish playing
+                                    }
+                                }
                         }
                     }
                 }
