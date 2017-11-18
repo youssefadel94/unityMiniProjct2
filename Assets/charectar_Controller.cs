@@ -28,14 +28,7 @@ public class charectar_Controller : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (animation.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !animation.IsInTransition(0))
-        {
-            isPlaying = true;
-        }
-        else
-        {
-            isPlaying = false;
-        }
+
 
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
