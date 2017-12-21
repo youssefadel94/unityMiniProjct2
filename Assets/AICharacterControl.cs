@@ -22,6 +22,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private float m_CapsuleHeight;
         private Vector3 m_CapsuleCenter;
         private object m_OrigGroundCheckDistance;
+        private bool m_Dead;
 
         private void Start()
         {
@@ -36,7 +37,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Capsule = GetComponent<CapsuleCollider>();
             m_CapsuleHeight = m_Capsule.height;
             m_CapsuleCenter = m_Capsule.center;
-
+            m_Dead = false;
+            m_Walking = true;
+            m_Attack = false;
             //m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
            
         }
@@ -44,6 +47,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+
+
+            // to kill orc simply set m_Dead to true
+
+
             if (target != null) {
                 Vector3 targetPostition = new Vector3(target.position.x,
                                        agent.transform.position.y,
@@ -81,6 +89,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Animator.SetBool("Walk", m_Walking);
             m_Animator.SetBool("Attack", m_Attack);
 
+            
+            m_Animator.SetBool("Dead", m_Dead);
+        
 
         }
 
